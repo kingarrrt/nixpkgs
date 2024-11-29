@@ -129,8 +129,10 @@ buildPythonPackage (finalAttrs: {
   };
 
   postInstall = ''
+    install logo.png -t $out
     install resources/qtile.desktop -Dt $out/share/xsessions
     install resources/qtile-wayland.desktop -Dt $out/share/wayland-sessions
+    install scripts/gen-keybinding-img $out/bin/qtile-gen-keybinding-img
   '';
 
   meta = {
