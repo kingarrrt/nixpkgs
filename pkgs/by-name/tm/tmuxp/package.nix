@@ -2,7 +2,9 @@
   lib,
   fetchPypi,
   installShellFiles,
+  makeWrapper,
   python3Packages,
+  tmux,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -32,6 +34,7 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   postInstall = ''
+    wrapProgram $out/bin/tmuxp --prefix PATH : ${lib.makeBinPath [ tmux ]}
     installShellCompletion --cmd tmuxp \
       --bash <(shtab --shell=bash -u tmuxp.cli.create_parser) \
       --zsh <(shtab --shell=zsh -u tmuxp.cli.create_parser)
