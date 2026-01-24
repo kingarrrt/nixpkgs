@@ -783,8 +783,9 @@ class Editor:
 
             print(f"{len(results)} of {len(current_plugins)} were checked")
             # Do only partial update of out file
-            if len(results) != len(current_plugins):
-                results = self.merge_results(current_plugins, results)
+            # HACK: make input_file work as expected
+            # if len(results) != len(current_plugins):
+            #     results = self.merge_results(current_plugins, results)
             plugins, redirects = check_results(results)
 
             # Track version changes for commit message generation
@@ -958,7 +959,7 @@ class Editor:
         command = args.command or "update"
         logging.basicConfig()
         log.setLevel(LOG_LEVELS[args.debug])
-        log.info("Chose to run command: %s", command)
+        log.info("Choose to run command: %s", command)
         self.nixpkgs = args.nixpkgs
 
         self.nixpkgs_repo = git.Repo(args.nixpkgs, search_parent_directories=True)
