@@ -230,13 +230,7 @@ let
         luaRcContent = rcContent;
         # Remove the symlinks created by symlinkJoin which we need to perform
         # extra actions upon
-        postBuild =
-          lib.optionalString stdenv.hostPlatform.isLinux ''
-            rm $out/share/applications/nvim.desktop
-            substitute ${neovim-unwrapped}/share/applications/nvim.desktop $out/share/applications/nvim.desktop \
-              --replace-warn 'Name=Neovim' 'Name=Neovim wrapper'
-          ''
-          + lib.optionalString finalAttrs.withPython3 ''
+        postBuild = lib.optionalString finalAttrs.withPython3 ''
             makeWrapper ${python3Env.interpreter} $out/bin/nvim-python3 --unset PYTHONPATH --unset PYTHONSAFEPATH
           ''
           + lib.optionalString (finalAttrs.withRuby) ''
