@@ -87,6 +87,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/parted/";
     license = lib.licenses.gpl3Plus;
 
+    mainProgram = "parted";
+
     maintainers = [
       # Add your name here!
     ];
